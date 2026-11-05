@@ -14,7 +14,7 @@ añadió fallback a la clave antigua y migración de formato.
 ## Decisiones (y por qué) 
 - Sin backend ni dependencias: cualquiera debe poder abrirlo con doble clic. 
 - Principios aprobados del proyecto en `docs/constitution.md`.
-- Regla aclarada para RF-12: las fechas futuras de la semana natural contarán para el objetivo y total semanal, no para rachas ni mapa; implementación pendiente.
+- RF-12 implementado: las fechas futuras de la semana natural cuentan para el objetivo y total semanal, no para rachas ni mapa.
 - Mapa de calor de 84 días implementado; spec, plan y tareas en `specs/001-heat-map/`.
 - Chrome a 375 px: comprobados guardado, 84 días, foco, pulsación emulada, árbol de accesibilidad y protección ante datos ilegibles; faltan lector de pantalla y pantalla táctil reales.
 - T3 marcada como implementada a petición del usuario; la validación real de accesibilidad sigue pendiente.
@@ -43,4 +43,5 @@ con tests en Node.
 - En Chrome, tres sesiones consecutivas entre octubre y noviembre dieron racha y mejor racha 3; consola sin errores. En móvil se observó «1 días de estudio» (singular pendiente).
 
 ## Próximos pasos 
-- T8 de `specs/002-objetivo-semanal/tasks.md` pendiente de autorización: verificación independiente y cierre.
+- T8 de `specs/002-objetivo-semanal/tasks.md` pendiente de cierre: revisión independiente aprobada y sensor independiente con cinco mutaciones detectadas; 38/38 pruebas base superadas.
+- README en español documenta el uso, SDD y el estado real; no supone el cierre de T8.
