@@ -89,8 +89,10 @@ Gate: `node --test` y Chrome, consola y móvil.
 **Verificación:** 37 tests Node en verde y validador de tareas sin errores ni avisos; Chrome `file://` aislado, clave antigua y formatos mixtos: 35 minutos semanales incluyendo 20 futuros, racha 1 y mapa de 84 días hasta hoy, datos y objetivo conservados tras recarga, consola limpia y móvil emulado de 375 px. No se probaron lector de pantalla ni táctil físicos.
 
 ### T8: Verificación independiente y cierre
+**Estado:** completada.
 **RF:** RF-1–RF-44.
 Depends on: T7
 Tests: verificación independiente de cada RF contra la spec y pruebas discriminantes aisladas; `node --test`.
 Gate: pruebas verdes, evidencia de Chrome, consola y móvil y revisión independiente sin fallos.
 **Hecho cuando:** se registra evidencia, se resuelven desviaciones y `MEMORY.md` refleja el estado y las decisiones sin datos sensibles.
+**Verificación:** revisión independiente posterior APROBADA, 43/43 pruebas y sensor anterior con cinco mutaciones detectadas de cinco; trazabilidad y límites en `validacion.md`. La evidencia de Chrome es histórica; no se comprobó de nuevo en esta revisión ni se probó suspensión, lector de pantalla o táctil reales. La prueba de privacidad usa canales simulados y no demuestra ausencia global de tráfico.

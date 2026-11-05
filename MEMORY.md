@@ -43,5 +43,9 @@ con tests en Node.
 - En Chrome, tres sesiones consecutivas entre octubre y noviembre dieron racha y mejor racha 3; consola sin errores. En móvil se observó «1 días de estudio» (singular pendiente).
 
 ## Próximos pasos 
-- T8 de `specs/002-objetivo-semanal/tasks.md` pendiente de cierre: revisión independiente aprobada y sensor independiente con cinco mutaciones detectadas; 38/38 pruebas base superadas.
-- README en español documenta el uso, SDD y el estado real; no supone el cierre de T8.
+- Spec 002, T8 completada: revisión independiente posterior aprobada, 43/43 pruebas; sensor anterior detectó cinco mutaciones de cinco. Informe y trazabilidad en `specs/002-objetivo-semanal/validacion.md`.
+- Chrome no disponible en la revisión actual; se conserva evidencia histórica. No se probaron suspensión, lector de pantalla ni táctil reales; los canales simulados no demuestran ausencia global de tráfico.
+- Existen cambios previos ajenos a T8 que deben conservarse.
+- `opencode.json` se dejó vacío intencionadamente por decisión del usuario.
+- README en español documenta el uso y SDD.
+- Nueva ejecución de cierre: 43/43 pruebas Node aprobadas; MCP de Chrome no disponible en esta sesión. Siguen pendientes las comprobaciones reales de suspensión, lector de pantalla y pantalla táctil.
