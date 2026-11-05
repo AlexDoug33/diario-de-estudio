@@ -388,3 +388,73 @@ test('recuperar objetivo corrupto conserva ambas claves de sesiones exactamente'
     assert.equal(data[goalKey], action === 'save' ? '50' : undefined);
   }
 });
+
+test('guardar una sesión actualiza el total y progreso sin recargar', () => {
+  const sessionKey = 'diario-estudio-sesiones';
+  const view = viewContext({ [sessionKey]: JSON.stringify([{ date: '2026-11-02', minutes: 20 }]), 'diario-estudio-objetivo-semanal': '100' });
+  view.context.fechaLocalHoy = () => '2026-11-03';
+  view.context.isValidDate = () => true;
+  view.context.renderHeatMap = () => {};
+  for (const [id, value] of Object.entries({ fecha: '2026-11-03', tema: 'Repaso', minutos: '30' })) view.elements[id] = { value };
+  for (const id of ['save-error', 'racha', 'racha-mejor', 'dias-mes']) view.elements[id] = { textContent: '' };
+  view.elements['form-sesion'] = { reset() {} };
+  view.elements['lista-sesiones'] = { innerHTML: '', appendChild() {} };
+  view.context.document.querySelector = () => ({ textContent: '' });
+  view.context.document.createElement = () => ({ appendChild() {} });
+  view.context.renderWeekly('2026-11-03');
+  assert.equal(view.elements['goal-progress-text'].textContent, '20 de 100 minutos');
+  let prevented = false;
+  view.context.guardarSesion({ preventDefault() { prevented = true; } });
+  assert.equal(prevented, true);
+  assert.equal(JSON.parse(view.data[sessionKey]).length, 2);
+  assert.equal(view.elements['minutos-semana'].textContent, '50 min');
+  assert.equal(view.elements['goal-progress-text'].textContent, '50 de 100 minutos');
+  assert.equal(view.elements['goal-bar'].value, 50);
+});
+
+test('reabrir muestra exactamente el objetivo enorme guardado', () => {
+  const goal = '12345678901234567890'.repeat(20);
+  const opened = viewContext();
+  opened.elements['goal-input'].value = '000' + goal;
+  opened.context.handleGoalSave({ preventDefault() {} });
+  const reopened = viewContext(opened.data);
+  reopened.context.renderWeekly('2026-11-03');
+  assert.equal(reopened.elements['goal-status'].textContent, `Objetivo semanal: ${goal} minutos`);
+  assert.equal(reopened.elements['goal-progress-text'].textContent, `0 de ${goal} minutos`);
+  assert.equal(reopened.data['diario-estudio-objetivo-semanal'], goal);
+});
+
+test('semana sin sesiones atribuibles muestra cero minutos', () => {
+  const view = viewContext({ 'diario-estudio-sesiones': JSON.stringify([{ date: '2026-11-09', minutes: 20 }]), 'diario-estudio-objetivo-semanal': '100' });
+  view.context.renderWeekly('2026-11-03');
+  assert.equal(view.elements['minutos-semana'].textContent, '0 min');
+  assert.equal(view.elements['goal-progress-text'].textContent, '0 de 100 minutos');
+  assert.equal(view.elements['goal-bar'].value, 0);
+});
+
+test('fallo de lectura del objetivo muestra error y no ausencia', () => {
+  const key = 'diario-estudio-objetivo-semanal';
+  const view = viewContext({ [key]: '100' }, { get: [key] });
+  view.context.renderWeekly('2026-11-03');
+  assert.match(view.elements['goal-status'].textContent, /error.*no se puede leer/i);
+  assert.doesNotMatch(view.elements['goal-status'].textContent, /Aún no tienes/i);
+  assert.equal(view.elements['goal-progress'].hidden, true);
+  assert.equal(view.data[key], '100');
+});
+
+test('acciones de objetivo no usan canales de red simulados', () => {
+  const view = viewContext({ 'diario-estudio-sesiones': '[{"date":"2026-11-03","minutes":20}]' });
+  const calls = [];
+  const record = (name) => (...args) => { calls.push({ name, args }); };
+  view.context.fetch = record('fetch');
+  view.context.XMLHttpRequest = class { open(...args) { calls.push({ name: 'xhr', args }); } send(...args) { calls.push({ name: 'xhr-send', args }); } };
+  view.context.WebSocket = class { constructor(...args) { calls.push({ name: 'websocket', args }); } };
+  view.context.navigator = { sendBeacon: record('beacon') };
+  view.context.renderWeekly('2026-11-03');
+  view.elements['goal-input'].value = '100';
+  view.context.handleGoalSave({ preventDefault() {} });
+  view.elements['goal-input'].value = '200';
+  view.context.handleGoalSave({ preventDefault() {} });
+  view.context.handleGoalRemove();
+  assert.deepEqual(calls, []);
+});
