@@ -4,6 +4,7 @@ Memoria del proyecto entre sesiones. Máximo ~50 líneas: resume o elimina lo qu
 aporte. 
 
 ## Estado actual
+- Proyecto publicado en un repositorio Git; rama principal `master`.
 - Registrar sesiones (fecha, tema, minutos), racha actual, mejor racha,
 minutos de la semana, días de estudio del mes y lista de sesiones.
 - Datos en localStorage, clave `diario-estudio-sesiones`, formato `{ date, topic, minutes }`. 
