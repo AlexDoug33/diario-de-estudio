@@ -46,4 +46,5 @@ con tests en Node.
 - Spec 002, T8 completada: revisión independiente posterior aprobada, 43/43 pruebas; sensor anterior detectó cinco mutaciones de cinco. Informe y trazabilidad en `specs/002-objetivo-semanal/validacion.md`.
 - Chrome no disponible en la revisión actual; se conserva evidencia histórica. No se probaron suspensión, lector de pantalla ni táctil reales; los canales simulados no demuestran ausencia global de tráfico.
 - Existen cambios previos ajenos a T8 que deben conservarse.
+- `opencode.json` se dejó vacío intencionadamente por decisión del usuario.
 - README en español documenta el uso y SDD.
