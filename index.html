@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diario de Estudio</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="contenedor">
+    <header class="encabezado">
+      <h1>Diario de Estudio</h1>
+      <p>Un espacio para registrar tu progreso, día a día.</p>
+    </header>
+
+    <section class="tarjeta tarjeta-progreso">
+      <h2>Racha actual</h2>
+      <p id="racha" class="racha">0</p>
+      <p class="racha-texto">días seguidos estudiando</p>
+      <p class="racha-mejor">Mejor racha: <span id="racha-mejor">0</span> días</p>
+      <p class="racha-semana">Esta semana: <span id="minutos-semana">0 min</span></p>
+      <p id="weekly-session-warning" class="heat-message" role="status"></p>
+      <p class="racha-semana">Este mes: <span id="dias-mes">0</span> días de estudio</p>
+    </section>
+
+    <section class="tarjeta goal" aria-labelledby="goal-title">
+      <h2 id="goal-title">Objetivo semanal</h2>
+      <p id="goal-status" role="status"></p>
+      <div id="goal-progress" hidden>
+        <p id="goal-progress-text"></p>
+        <progress id="goal-bar" max="100" value="0" aria-label="Progreso del objetivo semanal"></progress>
+      </div>
+      <p id="goal-action-error" class="heat-message" role="alert"></p>
+      <form id="goal-form" novalidate>
+        <div class="campo">
+          <label for="goal-input">Objetivo en minutos por semana</label>
+          <textarea id="goal-input" rows="1" inputmode="numeric" autocomplete="off" aria-describedby="goal-action-error"></textarea>
+        </div>
+        <button type="submit">Guardar objetivo</button>
+      </form>
+      <button id="goal-remove" type="button" class="goal-remove">Eliminar objetivo</button>
+    </section>
+
+    <section class="tarjeta" aria-labelledby="heat-map-title">
+      <h2 id="heat-map-title">Tu estudio en las últimas semanas</h2>
+      <p class="heat-intro">Cada casilla representa un día. Consulta una casilla para ver sus minutos.</p>
+      <p id="heat-error" class="heat-message" role="status"></p>
+      <div id="heat-content">
+        <div class="heat-scroll"><div class="heat-layout"><div id="heat-weekdays" class="heat-weekdays" aria-hidden="true"></div><div id="heat-grid" class="heat-grid" aria-label="Días de estudio"></div></div></div>
+        <p id="heat-detail" class="heat-detail" aria-live="polite">Selecciona un día para consultar sus minutos.</p>
+        <p class="heat-legend">Niveles: <span class="heat-key level-0">0: 0 min</span> <span class="heat-key level-1">1: 1–29 min</span> <span class="heat-key level-2">2: 30–59 min</span> <span class="heat-key level-3">3: 60–119 min</span> <span class="heat-key level-4">4: 120+ min</span> <span class="heat-key incomplete">?: total incompleto</span></p>
+      </div>
+    </section>
+
+    <section class="tarjeta">
+      <h2>Nueva sesión</h2>
+      <p id="save-error" class="heat-message" role="alert"></p>
+      <form id="form-sesion">
+        <div class="campo">
+          <label for="fecha">Fecha</label>
+          <input type="date" id="fecha" required>
+        </div>
+        <div class="campo">
+          <label for="tema">Tema</label>
+          <input type="text" id="tema" placeholder="Ej: Matemáticas" required>
+        </div>
+        <div class="campo">
+          <label for="minutos">Minutos</label>
+          <input type="number" id="minutos" min="1" step="1" placeholder="Ej: 30" required>
+        </div>
+        <button type="submit">Guardar sesión</button>
+      </form>
+    </section>
+
+    <section class="tarjeta">
+      <h2>Sesiones</h2>
+      <ul id="lista-sesiones"></ul>
+    </section>
+  </main>
+
+  <script src="heat-map.js"></script>
+  <script src="weekly-goal.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
