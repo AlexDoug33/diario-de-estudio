@@ -26,6 +26,7 @@ pero ayer sí, la racha sigue viva y se cuenta desde ayer. - Varias sesiones el 
 
 ## Forma de trabajar 
 - Haz solo lo que se pide: no añadas funcionalidades por tu cuenta. - Cambios pequeños y enfocados; no reescribas lo que ya funciona. - Al terminar, resume qué has cambiado y cualquier decisión que deba revisar. 
+- Futuras funcionalidades o implementaciones en ramas separadas; spec e implementación en commits separados.
 
 ## Memoria 
 - Al empezar, lee `MEMORY.md` para conocer el estado del proyecto y las decisiones 
