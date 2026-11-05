@@ -48,3 +48,4 @@ con tests en Node.
 - Existen cambios previos ajenos a T8 que deben conservarse.
 - `opencode.json` se dejó vacío intencionadamente por decisión del usuario.
 - README en español documenta el uso y SDD.
+- Nueva ejecución de cierre: 43/43 pruebas Node aprobadas; MCP de Chrome no disponible en esta sesión. Siguen pendientes las comprobaciones reales de suspensión, lector de pantalla y pantalla táctil.
